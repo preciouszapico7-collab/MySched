@@ -1,1 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MySched - Academic Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+<!-- ================= LOGIN ================= -->
+<div id="loginPage" class="login-page">
+
+    <div class="login-box">
+
+        <div class="logo">📚</div>
+
+        <h1>MySched</h1>
+        <p>Academic Planner</p>
+
+        <div class="role-buttons">
+            <button id="studentRole" class="active">
+                Student
+            </button>
+
+            <button id="teacherRole">
+                Teacher
+            </button>
+        </div>
+
+        <label>Username</label>
+        <input type="text" id="username"
+               placeholder="Enter username">
+
+        <label>Password</label>
+        <input type="password" id="password"
+               placeholder="Enter password">
+
+        <button class="login-btn" onclick="login()">
+            Log In
+        </button>
+
+        <p id="loginError"></p>
+
+        <div class="demo">
+            <b>Demo Account</b><br><br>
+
+            Student:
+            <b>student</b> / <b>1234</b>
+            <br>
+
+            Teacher:
+            <b>teacher</b> / <b>1234</b>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- ================= MAIN WEBSITE ================= -->
+
+<div id="mainApp" class="hidden">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">📚</div>
+            <b>MySched</b>
+        </div>
+
+        <button class="menu active"
+                onclick="showPage('overview', this)">
+            ▦
+            <span>Overview</span>
+        </button>
+
+        <button class="menu"
+                onclick="showPage('schedule', this)">
+            📅
+            <span>Class Schedule</span>
+        </button>
+
+        <button class="menu"
+                onclick="showPage('todo', this)">
+            ☑
+            <span>To-Do List</span>
+        </button>
+
+        <button class="menu"
+                onclick="showPage('courses', this)">
+            📖
+            <span>Courses</span>
+        </button>
+
+        <button class="menu"
+                onclick="showPage('settings', this)">
+            ⚙
+            <span>Settings</span>
+        </button>
+
+        <div class="logout-area">
+
+            <p id="accountType"></p>
+
+            <button onclick="logout()" class="logout">
+                ↪ Log Out
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- CONTENT -->
+    <main class="content">
+
+        <header>
+
+            <div>
+                <h1 id="pageTitle">
+                    Overview
+                </h1>
+
+                <p id="welcome">
+                    BSIS 1A Academic Planner
+                </p>
+            </div>
+
+            <div class="icons">
+                🔔　✉　📅
+            </div>
+
+        </header>
+
+
+        <!-- ================= OVERVIEW ================= -->
+
+        <section id="overview" class="page">
+
+            <div class="overview-grid">
+
+                <div class="calendar-box">
+
+                    <div class="calendar-header">
+
+                        <div>
+                            <h2>October 2026</h2>
+                            <p>Academic Calendar</p>
+                        </div>
+
+                        <button onclick="alert('Today is October 2, 2026')">
+                            Today
+                        </button>
+
+                    </div>
+
+
+                    <div class="calendar">
+
+                        <div class="day">Sunday</div>
+                        <div class="day">Monday</div>
+                        <div class="day">Tuesday</div>
+                        <div class="day">Wednesday</div>
+                        <div class="day">Thursday</div>
+                        <div class="day">Friday</div>
+                        <div class="day">Saturday</div>
+
+                        <div class="old">27</div>
+                        <div class="old">28</div>
+                        <div class="old">29</div>
+                        <div class="old">30</div>
+
+                        <div>1</div>
+
+                        <div class="today">
+                            2
+                        </div>
+
+                        <div>3</div>
+
+                        <div>4</div>
+                        <div>5</div>
+
+                        <div class="event purple">
+                            <b>6</b>
+                            <small>Activity</small>
+                            <strong>CC 101</strong>
+                            Introduction to Computing
+                            <small>7:30 AM</small>
+                        </div>
+
+                        <div>7</div>
+
+                        <div class="event green">
+                            <b>8</b>
+                            <small>Activity</small>
+                            <strong>CC 102A</strong>
+                            Computer Programming 1
+                            <small>1:00 PM</small>
+                        </div>
+
+                        <div>9</div>
+                        <div>10</div>
+
+                        <div>11</div>
+                        <div>12</div>
+                        <div>13</div>
+                        <div>14</div>
+                        <div>15</div>
+                        <div>16</div>
+                        <div>17</div>
+
+                        <div>18</div>
+                        <div>19</div>
+                        <div>20</div>
+                        <div>21</div>
+                        <div>22</div>
+                        <div>23</div>
+                        <div>24</div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TODO SIDE -->
+
+                <div class="todo-side">
+
+                    <div class="todo-title">
+                        <h2>To-Do List</h2>
+
+                        <button onclick="openTodo()">
+                            +
+                        </button>
+                    </div>
+
+                    <div id="overviewTodos"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SCHEDULE ================= -->
+
+        <section id="schedule"
+                 class="page hidden">
+
+            <div class="card">
+
+                <div class="section-header">
+
+                    <div>
+                        <h2>Class Schedule</h2>
+                        <p>Your weekly class schedule</p>
+                    </div>
+
+                    <button
+                        id="teacherScheduleButton"
+                        onclick="openSchedule()">
+                        + Add Class
+                    </button>
+
+                </div>
+
+                <div id="scheduleList"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TODO ================= -->
+
+        <section id="todo"
+                 class="page hidden">
+
+            <div class="card">
+
+                <div class="section-header">
+
+                    <div>
+                        <h2>To-Do List</h2>
+                        <p>Track your academic activities.</p>
+                    </div>
+
+                    <button onclick="openTodo()">
+                        + Add To-Do
+                    </button>
+
+                </div>
+
+                <div id="todoList"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= COURSES ================= -->
+
+        <section id="courses"
+                 class="page hidden">
+
+            <div class="card">
+
+                <div class="section-header">
+
+                    <div>
+                        <h2>Courses</h2>
+                        <p>BSIS 1A Subjects</p>
+                    </div>
+
+                    <button
+                        id="teacherCourseButton"
+                        onclick="openCourse()">
+                        + Add Course
+                    </button>
+
+                </div>
+
+                <div id="courseList"
+                     class="course-grid">
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SETTINGS ================= -->
+
+        <section id="settings"
+                 class="page hidden">
+
+            <div class="card settings">
+
+                <h2>Settings</h2>
+
+                <div class="setting">
+
+                    <div>
+                        <b>Appearance</b>
+
+                        <p>
+                            Choose your preferred theme.
+                        </p>
+                    </div>
+
+                    <div>
+
+                        <button onclick="lightMode()">
+                            ☀ Light
+                        </button>
+
+                        <button onclick="darkMode()">
+                            🌙 Dark
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="setting">
+
+                    <div>
+                        <b>Account</b>
+
+                        <p id="settingsAccount">
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ================= TODO MODAL ================= -->
+
+<div id="todoModal"
+     class="modal hidden">
+
+    <div class="modal-box">
+
+        <button class="close"
+                onclick="closeModal('todoModal')">
+            ×
+        </button>
+
+        <h2>Add To-Do</h2>
+
+        <label>Subject Code</label>
+
+        <input id="todoCode"
+               placeholder="e.g. CC101">
+
+
+        <label>Course Name</label>
+
+        <select id="todoCourse">
+        </select>
+
+
+        <label>Task</label>
+
+        <input id="todoTask"
+               placeholder="e.g. HTML Activity">
+
+
+        <label>Submission Date</label>
+
+        <input type="date"
+               id="todoDate">
+
+
+        <label>Type of Work</label>
+
+        <div class="chips">
+
+            <button onclick="selectType(this)"
+                    class="type active">
+                Activity
+            </button>
+
+            <button onclick="selectType(this)"
+                    class="type">
+                Quiz
+            </button>
+
+            <button onclick="selectType(this)"
+                    class="type">
+                Homework
+            </button>
+
+            <button onclick="selectType(this)"
+                    class="type">
+                Exam
+            </button>
+
+            <button onclick="selectType(this)"
+                    class="type">
+                Seatwork
+            </button>
+
+        </div>
+
+
+        <label>Notes</label>
+
+        <textarea id="todoNotes"
+                  placeholder="Anything you want to remember...">
+        </textarea>
+
+
+        <button class="save"
+                onclick="saveTodo()">
+            Save To-Do
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= COURSE MODAL ================= -->
+
+<div id="courseModal"
+     class="modal hidden">
+
+    <div class="modal-box">
+
+        <button class="close"
+                onclick="closeModal('courseModal')">
+            ×
+        </button>
+
+        <h2>Add Course</h2>
+
+        <label>Course Code</label>
+
+        <input id="courseCode"
+               placeholder="e.g. CC103">
+
+        <label>Course Name</label>
+
+        <input id="courseName"
+               placeholder="Course name">
+
+        <label>Teacher</label>
+
+        <input id="courseTeacher"
+               placeholder="Teacher name">
+
+        <button class="save"
+                onclick="saveCourse()">
+            Save Course
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= SCHEDULE MODAL ================= -->
+
+<div id="scheduleModal"
+     class="modal hidden">
+
+    <div class="modal-box">
+
+        <button class="close"
+                onclick="closeModal('scheduleModal')">
+            ×
+        </button>
+
+        <h2>Add Class</h2>
+
+        <label>Course</label>
+
+        <select id="scheduleCourse">
+        </select>
+
+        <label>Day</label>
+
+        <select id="scheduleDay">
+
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+
+        </select>
+
+        <label>Time</label>
+
+        <input type="time"
+               id="scheduleTime">
+
+        <label>Room</label>
+
+        <input id="scheduleRoom"
+               placeholder="e.g. 109">
+
+        <button class="save"
+                onclick="saveSchedule()">
+            Save Class
+        </button>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
